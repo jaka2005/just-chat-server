@@ -41,7 +41,7 @@ data class Message(val userId: Byte, val messageId: Int, val text: String): Even
 
         override suspend fun readFullEvent(inputChannel: ByteReadChannel): Message {
             val userId = inputChannel.readByte()
-            val messageId = inputChannel.readInt()
+            val messageId = inputChannel.readInt() // TODO: I should generate messageId on server and send their with accept
             val packetLength = inputChannel.readInt()
             val message = inputChannel.readPacket(packetLength).readText()
 
@@ -51,6 +51,7 @@ data class Message(val userId: Byte, val messageId: Int, val text: String): Even
 
     override suspend fun send(outputChannel: ByteWriteChannel) = outputChannel.run {
         outputChannel.writeByte(code)
+        outputChannel.writeByte(userId)
         outputChannel.writeInt(messageId)
         val encodedText = text.encodeToByteArray()
         outputChannel.writeInt(encodedText.size)

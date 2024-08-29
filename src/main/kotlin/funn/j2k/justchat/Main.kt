@@ -1,5 +1,9 @@
 package funn.j2k.justchat
 
+import funn.j2k.justchat.event.Accept
+import funn.j2k.justchat.event.Auth
+import funn.j2k.justchat.event.Event
+import funn.j2k.justchat.event.Message
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +27,24 @@ fun main() = runBlocking {
                         receiveChannel.readByte().toInt()
                     ).readFullEvent(receiveChannel)
                     when (event) {
-                        is Accept -> {}
+                        is Accept -> {
+
+                        }
                         is Message -> {
                             println(event)
-                            event.send(sendChannel)
+                            Accept(
+                                Message.code.toByte(),
+                                event.messageId,
+                                ByteArray(1) { 42 /* new message id as payload */ }
+                            ).send(sendChannel)
+                        }
+
+                        is Auth -> {
+                            Accept(
+                                Auth.code.toByte(),
+                                69 /*user id*/,
+                                "sdfsf".toByteArray() /*otp*/
+                            ).send(sendChannel)
                         }
                     }
                 }

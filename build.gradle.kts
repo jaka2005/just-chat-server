@@ -1,9 +1,14 @@
 plugins {
     kotlin("jvm") version "2.0.0"
+    application
 }
 
 group = "funn.j2k"
 version = "0.1"
+
+application {
+    mainClass = "funn.j2k.justchat.MainKt"
+}
 
 repositories {
     mavenCentral()

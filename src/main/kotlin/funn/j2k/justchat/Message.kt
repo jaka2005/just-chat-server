@@ -1,4 +1,4 @@
-package funn.j2k
+package funn.j2k.justchat
 
 import io.ktor.utils.io.*
 import io.ktor.utils.io.core.*

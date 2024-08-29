@@ -2,7 +2,6 @@ package funn.j2k.justchat
 
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
-import io.ktor.utils.io.core.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -27,7 +26,7 @@ fun main() = runBlocking {
                         is Accept -> {}
                         is Message -> {
                             println(event)
-                            sendChannel.writePacket(ByteReadPacket(event.text.encodeToByteArray()))
+                            event.send(sendChannel)
                         }
                     }
                 }

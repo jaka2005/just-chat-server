@@ -18,13 +18,13 @@ dependencies {
 }
 
 tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     manifest {
         attributes["Main-Class"] = "MainKt"
     }
     configurations["compileClasspath"].forEach { file: File ->
         from(zipTree(file.absoluteFile))
     }
-
 }
 
 tasks.test {

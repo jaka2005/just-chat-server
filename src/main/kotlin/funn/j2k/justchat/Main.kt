@@ -1,6 +1,7 @@
 package funn.j2k.justchat
 
-import funn.j2k.justchat.data.db.DbHelper
+import funn.j2k.justchat.data.db.initDatabase
+import funn.j2k.justchat.di.initKoin
 import funn.j2k.justchat.event.Accept
 import funn.j2k.justchat.event.Auth
 import funn.j2k.justchat.event.Event
@@ -11,8 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
+private val koin = initKoin().koin
+
 fun main() = runBlocking {
-    DbHelper.init()
+    initDatabase(koin.get())
 
     val selectorManager = SelectorManager(Dispatchers.IO)
     val serverSocket = aSocket(selectorManager).tcp().bind("127.0.0.1", 9002)

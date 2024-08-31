@@ -15,6 +15,9 @@ repositories {
 }
 
 dependencies {
+    val koinVersion = "4.0.0-RC1"
+    implementation("io.insert-koin:koin-core:$koinVersion")
+
     val ktorVersion = "2.3.12"
     implementation("io.ktor:ktor-network:$ktorVersion")
 
@@ -24,6 +27,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("com.h2database:h2:2.2.224")
+    implementation("org.xerial:sqlite-jdbc:3.44.1.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
     testImplementation(kotlin("test"))

@@ -1,5 +1,6 @@
 package funn.j2k.justchat.data.model
 
+import funn.j2k.justchat.domain.model.User
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -15,3 +16,9 @@ class UserDao(id: EntityID<Int>): IntEntity(id) {
     var username by UserTable.username
     var password by UserTable.password
 }
+
+fun UserDao.toUser() = User(
+    id.value,
+    username,
+    password
+)
